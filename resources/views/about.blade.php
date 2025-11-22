@@ -8,7 +8,7 @@
     <h3>Agung Dwi Laksana</h3>
     <p>agung.laksana16@gmail.com</p>
 
-    <img src="img/agung.png" alt="foto_agung" width="200px">
+    <img src="img/agung.png" alt="foto_agung" width="200px" class="img img-thumbnail rounded-circle">
 </div>
     
 @endsection
