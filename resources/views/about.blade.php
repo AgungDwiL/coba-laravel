@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+@extends('layouts.main')
 
-    <title>Agung's Blog | About</title>
-</head>
-<body>
-    Halaman About
+@section('title', "About")
+
+@section('body')
+<div class="container mt-3">
+    <h1>Halaman About</h1>
     <h3>Agung Dwi Laksana</h3>
     <p>agung.laksana16@gmail.com</p>
 
-    <img src="img/agung" alt="foto_agung" width="200px">
-
-</body>
+    <img src="img/agung.png" alt="foto_agung" width="200px">
+</div>
     
-    <script src="js/script.js"></script>
-</html>
+@endsection

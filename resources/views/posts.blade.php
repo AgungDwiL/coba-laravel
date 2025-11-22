@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
-    
-    <title>Agung's Blog | Blog</title>
-</head>
-<body>
-    Halaman Blog
-    <h3>Agung Dwi Laksana</h3>
-    <p>agung.laksana16@gmail.com</p>
+@extends('layouts.main')
 
-    <img src="img/agung" alt="foto_agung" width="200px">
-    
-</body>
+@section('title', "Blog")
 
-    <script src="js/script.js"></script>
-</html>
+@section('body')
+<div class="container mt-3">
+    @foreach ($posts as $post)
+        <article>
+        <a href="{{ url('/post/'.$post['slug']) }}">  
+            <h3>{{ $post['title'] }}</h3>
+        </a>
+        <h6>by: {{ $post['writer'] }}</h6>
+        <p>{{ $post['content'] }}</p>
+        </article>
+    @endforeach
+</div>
+@endsection
