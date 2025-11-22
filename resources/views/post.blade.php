@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "Blog")
+@section('title', 'Blog: ' . $post['title'])
 
 @section('body')
 <div class="container mt-3">

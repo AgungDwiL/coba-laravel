@@ -5,13 +5,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item {{ $title === 'Home' ? "active" : ''}}" >
+      <li class="nav-item {{ request()->is('/') ? "active" : ''}}" >
         <a class="nav-link" href="{{ url('/') }}">Home</a>
       </li>
-      <li class="nav-item {{ $title === 'About' ? "active" : ''}}" >
+      <li class="nav-item {{ request()->is('about') ? "active" : ''}}" >
         <a class="nav-link" href="{{ url('about') }}">About</a>
       </li>
-      <li class="nav-item {{ $title === 'Blog' ? "active" : ''}}" >
+      <li class="nav-item {{ request()->is('posts') || request()->is('post/*') ? "active" : ''}}" >
         <a class="nav-link" href="{{ url('posts') }}">Blog</a>
       </li>
     </ul>
