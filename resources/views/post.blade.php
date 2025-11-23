@@ -6,6 +6,7 @@
 <div class="container mt-3">
     <article>
       <h3>{{ $post->title }}</h3>
+      <h6>by: Author in <a href="{{ url('category/' . $post->category->slug) }}">{{ $post->category->name }}<a></h6>
       {!! $post->body !!}
     </article>
     

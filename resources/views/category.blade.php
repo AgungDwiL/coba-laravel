@@ -4,7 +4,11 @@
 
 @section('body')
 <div class="container mt-3">
-    @foreach ($posts as $post)
+  <h2 class="mb-5">
+    Post Category : {{ $category->name }}
+  </h2>
+
+    @foreach ($category->posts as $post)
         <article>
             <a href="{{ url('post/'.$post->slug) }}">  
                 <h3>{{ $post->title }}</h3>
