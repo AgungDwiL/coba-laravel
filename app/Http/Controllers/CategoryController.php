@@ -15,11 +15,4 @@ class CategoryController extends Controller
             'categories' => $categories,
         ]);
     }
-
-    public function show(Category $category)
-    {
-        return view('category', [
-            'category' => $category,
-        ]);
-    }
 }
