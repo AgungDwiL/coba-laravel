@@ -4,6 +4,7 @@
 
 @section('body')
 <div class="container mt-3">
+  <h2>Post's Category</h2>
     @foreach ($categories as $category)
         <ul>
           <li>

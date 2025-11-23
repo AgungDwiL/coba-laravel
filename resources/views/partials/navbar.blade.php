@@ -12,10 +12,10 @@
         <a class="nav-link" href="{{ url('about') }}">About</a>
       </li>
       <li class="nav-item {{ request()->is('posts') || request()->is('post/*') ? "active" : ''}}" >
-        <a class="nav-link" href="{{ url('posts') }}">Blog</a>
+        <a class="nav-link" href="{{ url('posts') }}">Blogs</a>
       </li>
       <li class="nav-item {{ request()->is('categories') || request()->is('category/*') ? "active" : ''}}" >
-        <a class="nav-link" href="{{ url('categories') }}">Kategori</a>
+        <a class="nav-link" href="{{ url('categories') }}">Categories</a>
       </li>
     </ul>
   </div>
