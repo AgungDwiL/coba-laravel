@@ -6,7 +6,7 @@
 <div class="container mt-3">
     @foreach ($posts as $post)
         <article>
-            <a href="{{ url('/post/'.$post->id) }}">  
+            <a href="{{ url('/post/'.$post->slug) }}">  
                 <h3>{{ $post->title }}</h3>
             </a>
             <p>{{ $post->excerpt }}</p>

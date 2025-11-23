@@ -16,9 +16,8 @@ class PostController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::find($id);
         return view('post', [
         'post' => $post
         ]);
