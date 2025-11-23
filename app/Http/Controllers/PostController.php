@@ -12,16 +12,14 @@ class PostController extends Controller
         $posts = Post::all();
 
         return view('posts', [
-            'title' => 'Blog',
             'posts' => $posts
         ]);
     }
 
-    public function show($slug)
+    public function show($id)
     {
-        $post = Post::find($slug);
+        $post = Post::find($id);
         return view('post', [
-        'title' => $post['title'],
         'post' => $post
         ]);
     }
