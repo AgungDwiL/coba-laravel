@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -20,6 +21,14 @@ class PostController extends Controller
     {
         return view('post', [
         'post' => $post
+        ]);
+    }
+
+    public function indexPostByAuthor(User $user)
+    {
+        $posts = $user->posts;
+        return view('posts', [
+            'posts' => $posts
         ]);
     }
 }

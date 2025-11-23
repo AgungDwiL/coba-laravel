@@ -13,7 +13,7 @@
 
             <p>
                 By: 
-                <a href="#" class="text-decoration-none">
+                <a href="{{ url('author/' . $post->author->username) }}" class="text-decoration-none">
                     {{ $post->author->name }}
                 </a>
                  in 
