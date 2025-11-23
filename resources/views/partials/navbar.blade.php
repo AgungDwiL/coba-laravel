@@ -14,6 +14,9 @@
       <li class="nav-item {{ request()->is('posts') || request()->is('post/*') ? "active" : ''}}" >
         <a class="nav-link" href="{{ url('posts') }}">Blog</a>
       </li>
+      <li class="nav-item {{ request()->is('categories') || request()->is('category/*') ? "active" : ''}}" >
+        <a class="nav-link" href="{{ url('categories') }}">Kategori</a>
+      </li>
     </ul>
   </div>
 </nav>

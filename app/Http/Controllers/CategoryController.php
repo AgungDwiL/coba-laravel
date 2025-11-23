@@ -7,8 +7,19 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function index()
+    {
+        $categories = Category::all();
+
+        return view('categories', [
+            'categories' => $categories,
+        ]);
+    }
+
     public function show(Category $category)
     {
-        return view('category', [ 'category' => $category ]);
+        return view('category', [
+            'category' => $category,
+        ]);
     }
 }
