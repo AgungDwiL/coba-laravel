@@ -4,7 +4,7 @@
 
 @section('body')
 <div class="container mt-3">
-    <h1 class="mb-4">Blog Posts</h1>
+    <h1 class="mb-4">{{ $headingPage }}</h1>
     @foreach ($posts as $post)
         <article class="mb-5 border-bottom p-2">
             <a href="{{ url('post/'.$post->slug) }}" class="text-decoration-none">  

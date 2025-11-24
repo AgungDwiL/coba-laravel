@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\User;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -14,7 +13,8 @@ class PostController extends Controller
         $posts = Post::all();
 
         return view('posts', [
-            'posts' => $posts
+            'posts' => $posts,
+            'headingPage' => 'All Blogs'
         ]);
     }
 
@@ -29,7 +29,8 @@ class PostController extends Controller
     {
         $posts = $user->posts;
         return view('posts', [
-            'posts' => $posts
+            'posts' => $posts,
+            'headingPage' => 'All Blogs By Author: ' . $user->name 
         ]);
     }
 
@@ -37,6 +38,7 @@ class PostController extends Controller
     {
         return view('posts', [
             'posts' => $category->posts,
+            'headingPage' => 'All Blogs By Category: ' . $category->name
         ]);
     }
 }
