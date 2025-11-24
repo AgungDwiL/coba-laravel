@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with(['category', 'author'])->get();
 
         return view('posts', [
             'posts' => $posts,
@@ -27,15 +27,24 @@ class PostController extends Controller
 
     public function indexPostsByAuthor(User $user)
     {
-        $posts = $user->posts;
+        $user->load([
+            'posts.category',
+            'posts.author'
+        ]);
+
         return view('posts', [
-            'posts' => $posts,
+            'posts' => $user->posts,
             'headingPage' => 'All Blogs By Author: ' . $user->name 
         ]);
     }
 
     public function indexPostsByCategory(Category $category)
     {
+        $category->load([
+            'posts.author',
+            'posts.category'
+        ]);
+
         return view('posts', [
             'posts' => $category->posts,
             'headingPage' => 'All Blogs By Category: ' . $category->name
