@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with(['post', 'author']);
+        $categories = Category::with(['posts', 'posts.author'])->get();
 
         return view('categories', [
             'categories' => $categories,
