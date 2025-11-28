@@ -8,12 +8,9 @@ use App\User;
 
 class PostController extends Controller
 {
-    protected $guarded = ['id'];
-    protected $with = ['category', 'author']; 
-
     public function index()
     {
-        $posts = Post::with(['category', 'author'])->get();
+        $posts = Post::latest()->get();
 
         return view('posts', [
             'posts' => $posts,
