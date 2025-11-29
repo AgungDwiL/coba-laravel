@@ -13,7 +13,7 @@
     @endif
       @foreach ($categories as $category)
         <div class="col-md-4 p-2">
-          <a href="{{ url('category/' . $category->slug) }}">
+          <a href="{{ url('posts?category=' . $category->slug) }}">
             <div class="card bg-dark text-white">
               <img class="card-img" src="https://www.sourcesplash.com/i/random?q={{ $category->name }}&w=500&h=300" alt="{{ $category->name }}">
               <div class="card-img-overlay d-flex align-items-center p-0">

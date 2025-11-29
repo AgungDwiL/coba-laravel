@@ -10,7 +10,10 @@
         <div class="col-md-6">
             <form action="{{ url('posts') }}">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ $search }}">
+                    @if(request('category') ?? false)
+                        <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+                    <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ $search ?? '' }}">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
@@ -32,7 +35,7 @@
                         {{ $posts[0]->author->name }}
                     </a>
                     in 
-                    <a href="{{ url('category/' . $posts[0]->category->slug)}}" class="text-decoration-none">
+                    <a href="{{ url('posts?category=' . $posts[0]->category->slug)}}" class="text-decoration-none">
                         {{ $posts[0]->category->name }}
                     </a>| {{ $posts[0]->created_at->diffForHUmans() }}
                     </small>
@@ -49,7 +52,7 @@
             @foreach ($posts->skip(1) as $post)
             <div class="col-md-4 mb-4 d-flex">
                 <div class="card d-flex flex-column w-100">
-                    <a class="text-decoration-none" href="{{ url('category/' . $post->category->slug)}}"><div class="position-absolute px-3 py-1 text-white" style="background-color: rgba(0,0,0,0.7);">{{ $post->category->name }}</div></a>
+                    <a class="text-decoration-none" href="{{ url('posts?category=' . $post->category->slug)}}"><div class="position-absolute px-3 py-1 text-white" style="background-color: rgba(0,0,0,0.7);">{{ $post->category->name }}</div></a>
                     <img src="https://www.sourcesplash.com/i/random?q={{ $post->category->name }}&w=1200&h=400" class="card-img-top" alt="{{ $post->category->name }}" style="height: 200px; object-fit: cover;" >
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">

@@ -12,8 +12,8 @@ class PostController extends Controller
     {
         return view('posts', [
             'search' => request('search'),
-            'posts' => Post::latest()->filter(request(['search']))->get(),
-            'headingPage' => 'All Blogs'
+            'posts' => Post::latest()->filter(request(['search', 'category']))->get(),
+            'headingPage' => request('category') ? 'Posts By Category : ' . ucwords(request('category')) : 'All Posts'
         ]);
     }
 
@@ -37,16 +37,4 @@ class PostController extends Controller
         ]);
     }
 
-    public function indexPostsByCategory(Category $category)
-    {
-        $category->load([
-            'posts.author',
-            'posts.category'
-        ]);
-
-        return view('posts', [
-            'posts' => $category->posts,
-            'headingPage' => 'All Blogs By Category: ' . $category->name
-        ]);
-    }
 }
