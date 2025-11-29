@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "Kategori")
+@section('title', 'Category')
 
 @section('body')
 <div class="container mt-3">

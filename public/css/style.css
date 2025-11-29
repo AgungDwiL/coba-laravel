@@ -1,3 +1,65 @@
 body{
     background-color: snow;
 }
+
+/* style untuk logo agung */
+.agung {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* bold & tegas */
+    font-size: 1.3rem; /* bisa disesuaikan */
+    letter-spacing: -1px;
+}
+
+.blog {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 400; /* lebih ringan dari Agung */
+    font-size: 1.2rem;
+}
+
+/* style untuk halaman login */
+.container-form {
+   height: calc(100vh - 61px); 
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* style untuk halaman register */
+.form-registration {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-registration input{
+  border-radius: 0;
+  padding: -1;
+}
