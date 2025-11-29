@@ -15,12 +15,21 @@ $factory->define(Post::class, function (Faker $faker) {
         $body .= '<p>' . $paragraph . '</p>';
     }
 
+    // Hapus HTML
+    $bodyClean = strip_tags($body);
+
+    // Ambil 120 karakter
+    $cut = Str::limit($bodyClean, 120, '');
+
+    // Ambil sampai titik terakhir dalam substring
+    $excerpt = Str::contains($cut, '.') ? Str::beforeLast($cut, '.') . '.' : $cut . ' ...';
+
     return [
         'category_id' => random_int(1, 10),
         'user_id'     => random_int(1, 5),
         'title'       => $title,
         'slug'        => Str::slug($title),
-        'excerpt'     => $faker->paragraph(1, true),
+        'excerpt'     => $excerpt,
         'body'        => $body,
     ];
 });

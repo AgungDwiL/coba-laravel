@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <form action="{{ url('posts') }}">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ old('search') }}">
+                    <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ $search }}">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
