@@ -10,10 +10,35 @@ class PostController extends Controller
 {
     public function index()
     {
+        $category = null;
+        $author = request('author');
+        $search = request('search');
+
+        if (request()->has('category')) {
+            $category = Category::where('slug', request('category'))->firstOrFail();
+        }
+
+        // Tentukan headingPage
+        if ($category && $author) {
+            $headingPage = 'Posts in Category: ' . $category->name . '<br>Author: ' . $author;
+        } elseif ($category) {
+            $headingPage = 'Posts in Category: ' . $category->name;
+        } elseif ($author) {
+            $headingPage = 'Posts by Author: ' . $author;
+        } else {
+            $headingPage = 'All Posts';
+        }
+
         return view('posts', [
-            'search' => request('search'),
-            'posts' => Post::latest()->filter(request(['search', 'category']))->get(),
-            'headingPage' => request('category') ? 'Posts By Category : ' . ucwords(request('category')) : 'All Posts'
+            'search' => $search,
+            'posts' => Post::latest()
+                ->filter([
+                    'search' => $search,
+                    'category' => $category ? $category->slug : null,
+                    'author' => $author
+                ])
+                ->paginate(7)->withQueryString(),
+            'headingPage' => $headingPage
         ]);
     }
 
@@ -21,19 +46,6 @@ class PostController extends Controller
     {
         return view('post', [
         'post' => $post
-        ]);
-    }
-
-    public function indexPostsByAuthor(User $user)
-    {
-        $user->load([
-            'posts.category',
-            'posts.author'
-        ]);
-
-        return view('posts', [
-            'posts' => $user->posts,
-            'headingPage' => 'All Blogs By Author: ' . $user->name 
         ]);
     }
 

@@ -3,8 +3,9 @@
 @section('title', "Blog")
 
 @section('body')
+
 <div class="container">
-    <h1 class="mb-2 mt-2 text-center">{{ $headingPage }}</h1>
+    <h1 class="mb-2 mt-2 text-center">{!! $headingPage !!}</h1>
 
     <div class="mb-3 row justify-content-center">
         <div class="col-md-6">
@@ -12,6 +13,9 @@
                 <div class="input-group mb-3">
                     @if(request('category') ?? false)
                         <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+                    @if(request('author') ?? false)
+                        <input type="hidden" name="author" value="{{ request('author') }}">
                     @endif
                     <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ $search ?? '' }}">
                     <div class="input-group-append">
@@ -31,7 +35,7 @@
                 <p>
                     <small class="text-muted">
                     By: 
-                    <a href="{{ url('author/' . $posts[0]->author->username) }}" class="text-decoration-none">
+                    <a href="{{ url('posts?author=' . $posts[0]->author->name) }}" class="text-decoration-none">
                         {{ $posts[0]->author->name }}
                     </a>
                     in 
@@ -46,8 +50,7 @@
                 <a href="{{ url('post/'.$posts[0]->slug) }}" class="text-decoration-none btn btn-primary">Read more</a>
             </div>
         </div>
-    
-    <div class="contain">
+    <div class="container">
         <div class="row">
             @foreach ($posts->skip(1) as $post)
             <div class="col-md-4 mb-4 d-flex">
@@ -62,7 +65,7 @@
                         </h5>
                         <small class="text-muted">
                             By: 
-                            <a href="{{ url('author/' . $post->author->username) }}" class="text-decoration-none">
+                            <a href="{{ url('posts?author=' . $post->author->name) }}" class="text-decoration-none">
                                 {{ $post->author->name }}
                             </a>
                             | {{ $post->created_at->diffForHumans() }}
@@ -74,6 +77,9 @@
             </div>
             @endforeach
         </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        {{ $posts->links() }}
     </div>
 </div>
     @else
