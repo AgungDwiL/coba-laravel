@@ -4,6 +4,12 @@
 
 @section('body')
 
+@if(request('search') ?? false)
+    <?php $currentFilter = ['search' => request('search')] ?>
+@else
+    <?php $currentFilter = [] ?>
+@endif
+
 <div class="container">
     <h1 class="mb-2 mt-2 text-center">{!! $headingPage !!}</h1>
 
@@ -13,9 +19,11 @@
                 <div class="input-group mb-3">
                     @if(request('category') ?? false)
                         <input type="hidden" name="category" value="{{ request('category') }}">
+                        <?php $currentFilter = array_merge($currentFilter, ['category' => request('category')]) ?>
                     @endif
                     @if(request('author') ?? false)
                         <input type="hidden" name="author" value="{{ request('author') }}">
+                        <?php $currentFilter = array_merge($currentFilter, ['author' => request('author')]) ?>
                     @endif
                     <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ $search ?? '' }}">
                     <div class="input-group-append">
@@ -35,11 +43,11 @@
                 <p>
                     <small class="text-muted">
                     By: 
-                    <a href="{{ url('posts?author=' . $posts[0]->author->name) }}" class="text-decoration-none">
+                    <a href="{{ url('posts?' . http_build_query(array_merge($currentFilter, ['author' => $posts[0]->author->name]))) }}" class="text-decoration-none">
                         {{ $posts[0]->author->name }}
                     </a>
                     in 
-                    <a href="{{ url('posts?category=' . $posts[0]->category->slug)}}" class="text-decoration-none">
+                    <a href="{{ url('posts?' . http_build_query(array_merge($currentFilter, ['category' => $posts[0]->category->slug]))) }}" class="text-decoration-none">
                         {{ $posts[0]->category->name }}
                     </a>| {{ $posts[0]->created_at->diffForHUmans() }}
                     </small>
@@ -55,7 +63,7 @@
             @foreach ($posts->skip(1) as $post)
             <div class="col-md-4 mb-4 d-flex">
                 <div class="card d-flex flex-column w-100">
-                    <a class="text-decoration-none" href="{{ url('posts?category=' . $post->category->slug)}}"><div class="position-absolute px-3 py-1 text-white" style="background-color: rgba(0,0,0,0.7);">{{ $post->category->name }}</div></a>
+                    <a class="text-decoration-none" href="{{ url('posts?' . http_build_query(array_merge($currentFilter, ['category' => $post->category->slug]))) }}"><div class="position-absolute px-3 py-1 text-white" style="background-color: rgba(0,0,0,0.7);">{{ $post->category->name }}</div></a>
                     <img src="https://www.sourcesplash.com/i/random?q={{ $post->category->name }}&w=1200&h=400" class="card-img-top" alt="{{ $post->category->name }}" style="height: 200px; object-fit: cover;" >
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">
@@ -65,7 +73,7 @@
                         </h5>
                         <small class="text-muted">
                             By: 
-                            <a href="{{ url('posts?author=' . $post->author->name) }}" class="text-decoration-none">
+                            <a href="{{ url('posts?' . http_build_query(array_merge($currentFilter, ['author' => $post->author->name]))) }}" class="text-decoration-none">
                                 {{ $post->author->name }}
                             </a>
                             | {{ $post->created_at->diffForHumans() }}
