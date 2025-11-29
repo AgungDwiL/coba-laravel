@@ -11,7 +11,7 @@
         <li class="nav-item {{ request()->is('about') ? "active" : ''}}" >
           <a class="nav-link" href="{{ url('about') }}">About</a>
         </li>
-        <li class="nav-item {{ request()->is('posts') || request()->is('post/*') ? "active" : ''}}" >
+        <li class="nav-item {{ request()->is('posts') || request()->is('post/*') || request()->is('author/*') ? "active" : ''}}" >
           <a class="nav-link" href="{{ url('posts') }}">Blogs</a>
         </li>
         <li class="nav-item {{ request()->is('categories') || request()->is('category/*') ? "active" : ''}}" >

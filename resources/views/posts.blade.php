@@ -4,7 +4,20 @@
 
 @section('body')
 <div class="container">
-    <h1 class="mb-4 mt-2">{{ $headingPage }}</h1>
+    <h1 class="mb-2 mt-2 text-center">{{ $headingPage }}</h1>
+
+    <div class="mb-3 row justify-content-center">
+        <div class="col-md-6">
+            <form action="{{ url('posts') }}">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="search" placeholder="Search.." value="{{ old('search') }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     
     @if ($posts->count())
         <div class="card mb-3">
@@ -30,9 +43,6 @@
                 <a href="{{ url('post/'.$posts[0]->slug) }}" class="text-decoration-none btn btn-primary">Read more</a>
             </div>
         </div>
-    @else
-        <p class="text-center fs-4">No post found.</p>
-    @endif
     
     <div class="contain">
         <div class="row">
@@ -63,4 +73,7 @@
         </div>
     </div>
 </div>
+    @else
+        <p class="text-center fs-4">No post found.</p>
+    @endif
 @endsection

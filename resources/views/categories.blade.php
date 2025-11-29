@@ -6,7 +6,11 @@
 <div class="container mt-3">
   <h1 class="mb-5">Post's Category</h1>
   <div class="container">
-    <div class="row">
+    @if($categories->count() % 3 == 1)
+      <div class="row d-flex justify-content-center">
+    @else
+      <div class="row">
+    @endif
       @foreach ($categories as $category)
         <div class="col-md-4 p-2">
           <a href="{{ url('category/' . $category->slug) }}">
