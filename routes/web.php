@@ -26,6 +26,16 @@ Route::get('/post/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::middleware('guest')->group(function(){
+  Route::get('/login', [LoginController::class, 'index'])->name('login');
+  Route::post('/login', [LoginController::class, 'authenticate']);
+
+  Route::get('/register', [RegisterController::class, 'index']);
+  Route::post('/register', [RegisterController::class, 'store']);
+});
+
+Route::middleware('auth')->group(function(){
+  Route::view('/dashboard', 'dashboard.index');
+
+  Route::post('/logout', [LoginController::class, 'logout']);
+});

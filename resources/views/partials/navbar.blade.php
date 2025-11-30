@@ -22,10 +22,28 @@
         <a class="nav-link" href="{{ url('categories') }}">Categories</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto pr-3">
-      <li class="nav-item">
-        <a href="{{ url('login') }}" class="nav-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
-      </li>
-    </ul>
+    @auth
+      <ul class="navbar-nav ml-auto pr-3">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            Welcome back, {{ auth()->user()->name }} !
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('dashboard') }}"><i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard</a>
+            <div class="dropdown-divider"></div>
+            <form action="{{ url('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+            </form>
+          </div>
+        </li>
+      </ul>
+    @else
+      <ul class="navbar-nav ml-auto pr-3">
+        <li class="nav-item">
+          <a href="{{ url('login') }}" class="nav-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+        </li>
+      </ul>
+    @endauth
   </div>
 </nav>
