@@ -5,16 +5,16 @@
   <h1 class="h2">My Posts</h1>
 </div>
 
-@if(session()->has('success'))
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-@endif
-
 <div class="table-responsive col-lg-8">
+  @if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ session('success') }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  @endif
+  
   <a href="{{ url('dashboard/posts/create') }}" class="btn btn-primary mb-3"> Create New Post</a>
   <table class="table table-striped table-sm">
     <thead>
@@ -34,7 +34,11 @@
         <td>
           <a href="{{ url('dashboard/posts/' . $post->slug) }}" class="badge bg-info text-body text-decoration-none"><span data-feather="eye"></span></a>
           <a href="" class="badge bg-warning text-body text-decoration-none"><span data-feather="edit"></span></a>
-          <a href="" class="badge bg-danger text-body text-decoration-none"><span data-feather="x"></span></a>
+          <form action="{{ url('dashboard/posts/' . $post->slug) }}" method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x"></button>
+          </form>
         </td>
       </tr>
       @endforeach
