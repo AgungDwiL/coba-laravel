@@ -46,8 +46,9 @@
     </div>
     <div class="form-group mb-3">
       <label for="image">Post Image</label>
+      <img class="img-preview img-fluid mb-3 col-sm-5">
       <div class="custom-file @error('image') is-invalid @enderror">
-        <input type="file" class="custom-file-input" id="image" name="image">
+        <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage()">
         <label class="custom-file-label" for="image">Choose file</label>
       </div>
       @error('image')
@@ -81,4 +82,20 @@
       .then(data => slug.value = data.slug)
   });
 </script>
+
+<script>
+  function previewImage(){
+    const image = document.querySelector('#image');
+    const imgPreview = document.querySelector('.img-preview');
+
+    imgPreview.style.display = 'block';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(oFREvent){
+      imgPreview.src = oFREvent.target.result;
+    }
+  }
+  </script>
 @endsection
