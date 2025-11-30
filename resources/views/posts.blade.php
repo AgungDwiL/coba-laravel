@@ -36,7 +36,13 @@
     
     @if ($posts->count())
         <div class="card mb-3">
-            <img src="https://www.sourcesplash.com/i/random?q={{ $posts[0]->category->name }}&w=1200&h=400" alt="{{ $posts[0]->category->name }}" class="card-img-top img-fluid w-100" style="height: 400px; object-fit: cover;"/>
+            @if ($posts[0]->image)
+                <div style="max-height:400px; aspect-ratio: 3/1; object-fit: cover; object-position: center; overflow: hidden;">
+                <img src="{{ asset('storage/' . $posts[0]->image) }}" alt="{{ $posts[0]->category->name }}" class="img-fluid mt-3">
+                </div>
+            @else
+                <img src="https://www.sourcesplash.com/i/random?q={{ $posts[0]->category->name }}&w=1200&h=400" alt="{{ $posts[0]->category->name }}" class="card-img-top img-fluid w-100" style="height: 400px; object-fit: cover;">
+            @endif
             <div class="card-body text-center">
                 <h3 class="card-title"><a class="text-decoration-none text-dark" href="{{ url('post/'.$posts[0]->slug) }}">{{ $posts[0]->title }}</a></h3>
                 
@@ -64,7 +70,13 @@
             <div class="col-md-4 mb-4 d-flex">
                 <div class="card d-flex flex-column w-100">
                     <a class="text-decoration-none" href="{{ url('posts?' . http_build_query(array_merge($currentFilter, ['category' => $post->category->slug]))) }}"><div class="position-absolute px-3 py-1 text-white" style="background-color: rgba(0,0,0,0.7);">{{ $post->category->name }}</div></a>
-                    <img src="https://www.sourcesplash.com/i/random?q={{ $post->category->name }}&w=1200&h=400" class="card-img-top" alt="{{ $post->category->name }}" style="height: 200px; object-fit: cover;" >
+                    @if ($post->image)
+                        <div style="max-height:200px; aspect-ratio: 3/1; object-fit: cover; object-position: center; overflow: hidden;">
+                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid mt-3">
+                        </div>
+                    @else
+                        <img src="https://www.sourcesplash.com/i/random?q={{ $post->category->name }}&w=1200&h=400" alt="{{ $post->category->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    @endif
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">
                             <a href="{{ url('post/'.$post->slug) }}" class="text-decoration-none">  

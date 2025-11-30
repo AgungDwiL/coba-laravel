@@ -45,8 +45,13 @@ class DashboardPostController extends Controller
             'title' => 'required|string',
             'slug' => 'required|unique:posts',
             'category_id' => 'required|integer',
+            'image' => 'image|mimes:png,jpg,jpeg|max:1024',
             'body' => 'required|string'
         ]);
+
+        if($request->file('image')){
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         // Hapus HTML
         $bodyClean = strip_tags($validatedData['body']);

@@ -6,7 +6,7 @@
 </div>
 
 <div class="col-lg-8">
-  <form method="POST" action="{{ url('dashboard/posts') }}" class="mb-5">
+  <form method="POST" action="{{ url('dashboard/posts') }}" class="mb-5" enctype="multipart/form-data">
     @csrf
     <div class="form-group mb-3">
       <label for="title">Title</label>
@@ -39,6 +39,18 @@
         @endforeach
       </select>
       @error('category_id')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+      @enderror
+    </div>
+    <div class="form-group mb-3">
+      <label for="image">Post Image</label>
+      <div class="custom-file @error('image') is-invalid @enderror">
+        <input type="file" class="custom-file-input" id="image" name="image">
+        <label class="custom-file-label" for="image">Choose file</label>
+      </div>
+      @error('image')
         <div class="invalid-feedback">
           {{ $message }}
         </div>

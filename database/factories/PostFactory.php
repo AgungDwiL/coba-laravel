@@ -26,7 +26,7 @@ $factory->define(Post::class, function (Faker $faker) {
 
     return [
         'category_id' => random_int(1, 10),
-        'user_id'     => random_int(1, 5),
+        'user_id'     => random_int(1, 6),
         'title'       => $title,
         'slug'        => Str::slug($title),
         'excerpt'     => $excerpt,
