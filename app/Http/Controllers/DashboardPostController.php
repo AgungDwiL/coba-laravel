@@ -47,6 +47,22 @@ class DashboardPostController extends Controller
             'category_id' => 'required|integer',
             'body' => 'required|string'
         ]);
+
+        // Hapus HTML
+        $bodyClean = strip_tags($validatedData['body']);
+
+        // Ambil 120 karakter
+        $cut = Str::limit($bodyClean, 120, '');
+
+        // Ambil sampai titik terakhir dalam substring
+        $excerpt = Str::contains($cut, '.') ? Str::beforeLast($cut, '.') . '.' : $cut . ' ...';
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = $excerpt;
+
+        Post::create($validatedData);
+
+        return redirect(url('dashboard/posts'))->with('success', 'New post has been added successfully');
     }
 
     /**

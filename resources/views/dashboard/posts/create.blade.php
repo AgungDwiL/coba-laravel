@@ -6,7 +6,7 @@
 </div>
 
 <div class="col-lg-8">
-  <form method="POST" action="{{ url('dashboard/posts') }}">
+  <form method="POST" action="{{ url('dashboard/posts') }}" class="mb-5">
     @csrf
     <div class="form-group mb-3">
       <label for="title">Title</label>
