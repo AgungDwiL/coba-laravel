@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class DashboardPostController extends Controller
@@ -26,7 +28,9 @@ class DashboardPostController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.posts.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -37,7 +41,7 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -85,5 +89,11 @@ class DashboardPostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = Str::slug($request->title);
+        return response()->json(['slug' => $slug]);
     }
 }

@@ -8,7 +8,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ request()->is('dashboard/posts') ? 'active' : '' }}" href="{{ url('dashboard/posts') }}">
+        <a class="nav-link {{ Str::startsWith(request()->path(), 'dashboard/posts') ? 'active' : '' }}" href="{{ url('dashboard/posts') }}">
           <span data-feather="file-text"></span>
           My Posts
         </a>
@@ -16,3 +16,7 @@
     </ul>
   </div>
 </nav>
+
+@php 
+  use Illuminate\Support\Str 
+@endphp

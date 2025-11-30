@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -39,5 +40,6 @@ Route::middleware('auth')->group(function(){
 
   Route::post('/logout', [LoginController::class, 'logout']);
 
+  Route::get('/dashboard/posts/createSlug', [DashboardPostController::class, 'checkSlug']);
   Route::resource('/dashboard/posts', 'DashboardPostController');
 });

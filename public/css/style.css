@@ -63,3 +63,12 @@ body{
   border-radius: 0;
   padding: -1;
 }
+
+/* hapus attach file pada trix editor */
+trix-toolbar [data-trix-action="attachFiles"] {
+    display: none;
+  }
+
+trix-toolbar .trix-button-group--file-tools {
+    display: none !important;
+}
