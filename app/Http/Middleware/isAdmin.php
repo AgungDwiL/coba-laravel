@@ -15,7 +15,7 @@ class isAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->check() || auth()->user()->username !== 'agungdwilaksana'){
+        if(!auth()->check() || !auth()->user()->is_admin){
             abort(403);
         }
         
