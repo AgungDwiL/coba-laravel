@@ -7,7 +7,7 @@
       <h1 class="mb-3">{{ $post->title }}</h1>
 
       <a href="{{ url('dashboard/posts') }}" class="btn btn-secondary"><span data-feather="arrow-left"></span> Back to All My Posts</a>
-      <a href="" class="btn btn-warning"><span data-feather="edit"></span> Edit</a>
+      <a href="{{ url('dashboard/posts/' . $post->slug . '/edit') }}" class="btn btn-warning"><span data-feather="edit"></span> Edit</a>
       <form action="{{ url('dashboard/posts/' . $post->slug) }}" method="POST" class="d-inline">
         @csrf
         @method('DELETE')

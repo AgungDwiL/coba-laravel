@@ -14,7 +14,7 @@
       </button>
     </div>
   @endif
-  
+
   <a href="{{ url('dashboard/posts/create') }}" class="btn btn-primary mb-3"> Create New Post</a>
   <table class="table table-striped table-sm">
     <thead>
@@ -33,7 +33,7 @@
         <td>{{ $post->category->name }}</td>
         <td>
           <a href="{{ url('dashboard/posts/' . $post->slug) }}" class="badge bg-info text-body text-decoration-none"><span data-feather="eye"></span></a>
-          <a href="" class="badge bg-warning text-body text-decoration-none"><span data-feather="edit"></span></a>
+          <a href="{{ url('dashboard/posts/' . $post->slug . '/edit') }}" class="badge bg-warning text-body text-decoration-none"><span data-feather="edit"></span></a>
           <form action="{{ url('dashboard/posts/' . $post->slug) }}" method="POST" class="d-inline">
             @csrf
             @method('DELETE')

@@ -62,7 +62,7 @@ class DashboardPostController extends Controller
 
         Post::create($validatedData);
 
-        return redirect(url('dashboard/posts'))->with('success', 'New post has been added successfully');
+        return redirect(url('dashboard/posts'))->with('success', 'New post has been added successfully!');
     }
 
     /**
@@ -86,7 +86,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.posts.edit', [
+            'categories' => Category::all(),
+            'post' => $post
+        ]);
     }
 
     /**
@@ -98,7 +101,29 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'slug' => 'required|unique:posts,slug, ' . $post->id . ',id',
+            'category_id' => 'required|integer',
+            'body' => 'required|string'
+        ]);
+
+        // Hapus HTML
+        $bodyClean = strip_tags($validatedData['body']);
+
+        // Ambil 120 karakter
+        $cut = Str::limit($bodyClean, 120, '');
+
+        // Ambil sampai titik terakhir dalam substring
+        $excerpt = Str::contains($cut, '.') ? Str::beforeLast($cut, '.') . '.' : $cut . ' ...';
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = $excerpt;
+
+        Post::where('id', $post->id)
+            ->update($validatedData);
+
+        return redirect(url('dashboard/posts'))->with('success', 'Post has been updated successfully!');
     }
 
     /**
