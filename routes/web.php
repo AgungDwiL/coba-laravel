@@ -43,3 +43,5 @@ Route::middleware('auth')->group(function(){
   Route::get('/dashboard/posts/createSlug', [DashboardPostController::class, 'checkSlug']);
   Route::resource('/dashboard/posts', 'DashboardPostController');
 });
+
+Route::resource('/dashboard/categories', 'AdminCategoryController')->except('show')->middleware('admin');
