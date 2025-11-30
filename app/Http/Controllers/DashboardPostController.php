@@ -41,7 +41,12 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'slug' => 'required|unique:posts',
+            'category_id' => 'required|integer',
+            'body' => 'required|string'
+        ]);
     }
 
     /**
