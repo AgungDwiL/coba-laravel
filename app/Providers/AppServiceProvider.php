@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Support\ServiceProvider;
-use Clockwork\Support\Laravel\Clockwork as ClockworkSupport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // 
+        Gate::define('admin', function(User $user){
+            return $user->username === 'agungdwilaksana';
+        });
     }
 }
