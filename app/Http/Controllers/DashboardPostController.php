@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPostController extends Controller
 {
@@ -109,9 +110,17 @@ class DashboardPostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'slug' => 'required|unique:posts,slug, ' . $post->id . ',id',
+            'image' => 'image|mimes:png,jpg,jpeg|max:1024',
             'category_id' => 'required|integer',
             'body' => 'required|string'
         ]);
+
+        if($request->file('image')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         // Hapus HTML
         $bodyClean = strip_tags($validatedData['body']);
@@ -139,6 +148,11 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
+       
+        if($post->image){
+            Storage::delete($post->image);
+        }
+        
         Post::destroy($post->id);
         return redirect(url('dashboard/posts'))->with('success', 'Post has been deleted.');
     }

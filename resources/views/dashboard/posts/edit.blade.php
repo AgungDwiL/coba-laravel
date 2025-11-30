@@ -6,9 +6,10 @@
 </div>
 
 <div class="col-lg-8">
-  <form method="POST" action="{{ url('dashboard/posts/' . $post->slug) }}" class="mb-5">
+  <form method="POST" action="{{ url('dashboard/posts/' . $post->slug) }}" class="mb-5" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
+    <input type="hidden" name="oldImage" value="{{ $post->image }}">
     <div class="form-group mb-3">
       <label for="title">Title</label>
       <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" required value="{{ old('title', $post->title) }}">
@@ -45,6 +46,23 @@
       @enderror
     </div>
     <div class="form-group mb-3">
+      <label for="image">Post Image</label>
+      @if($post->image)
+        <img src="{{ asset('storage/' . $post->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+      @else
+        <img class="img-preview img-fluid mb-3 col-sm-5">
+      @endif
+      <div class="custom-file @error('image') is-invalid @enderror">
+        <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage()">
+        <label class="custom-file-label" for="image">Choose file</label>
+      </div>
+      @error('image')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+      @enderror
+    </div>
+    <div class="form-group mb-3">
       <label for="body">Body</label>
       <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}" required>
       <trix-editor input="body" class="@error('body') is-invalid @enderror"></trix-editor>
@@ -57,16 +75,4 @@
     <button type="submit" class="btn btn-primary">Update Post</button>
   </form>
 </div>
-
-<script>
-  const title = document.querySelector('#title');
-  const slug = document.querySelector('#slug');
-
-  title.addEventListener('change', function(){
-
-    fetch("{{ url('dashboard/posts/createSlug') }}?title=" + encodeURIComponent(title.value))
-      .then(response => response.json())
-      .then(data => slug.value = data.slug)
-  });
-</script>
 @endsection
