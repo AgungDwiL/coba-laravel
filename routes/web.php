@@ -38,4 +38,6 @@ Route::middleware('auth')->group(function(){
   Route::view('/dashboard', 'dashboard.index');
 
   Route::post('/logout', [LoginController::class, 'logout']);
+
+  Route::resource('/dashboard/posts', 'DashboardPostController');
 });

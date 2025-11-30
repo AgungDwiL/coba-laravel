@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
-use App\User;
 
 class PostController extends Controller
 {
